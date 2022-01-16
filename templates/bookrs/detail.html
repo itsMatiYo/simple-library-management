@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="post-entry">
+        <h2><a href={% url 'bookDetail' bookRecord.book.pk %}> book: {{ bookRecord.book }}</a></h2>
+
+        <p>User: <a href={% url 'userDetail' bookRecord.user.pk %}>{{ bookRecord.user }}</a></p>
+        <p>Borrowed time: {{bookRecord.borrowingTime |date:'o/n/j G:i'}}</p>
+        <p>Returned time: {{bookRecord.returnTime |date:'o/n/j G:i'}}</p>
+    </div>
+    <a href="{% url 'bookRecordReturn' bookRecord.pk %}">+ Return book Post</a>
+    <p>
+        <a href="{% url 'bookRecordDelete' bookRecord.pk %}">- Delete Blog Post</a>
+    </p>
+
+{% endblock content %}

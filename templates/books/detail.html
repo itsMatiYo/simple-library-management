@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="post-entry">
+        <h2>title: {{ book.title }}</h2>
+        <p>author : {{ book.author }}</p>
+        <p>created time : {{book.creationDate |date:'o/n/j G:i'}}</p>
+    </div>
+    <a href="{% url 'bookEdit' book.pk %}">+ Edit book Post</a>
+    <p><a href="{% url 'bookDelete' book.pk %}">- Delete Blog Post</a></p>
+
+    <h2>Book Records for this book</h2>
+    {% include 'bookrs/book_records_table.html' %}
+
+{% endblock content %}
+
+
+{% comment %} add book records
+    to users too
+{% endcomment %}

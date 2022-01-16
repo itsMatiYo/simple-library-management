@@ -1,0 +1,25 @@
+<table class="table">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Book</th>
+        <th scope="col">User</th>
+        <th scope="col">Borrowed Time</th>
+        <th scope="col">Return Time</th>
+    </tr>
+    {% for bookr in bookRecords %}
+        <tr>
+            <td><a href={% url 'bookRecordDetail' bookr.pk %}>{{forloop.counter}}</a></td>
+            <td><a href={% url 'bookDetail' bookr.book.pk %}>{{bookr.book}}</a></td>
+            <td><a href={% url 'userDetail' bookr.user.pk %}>{{bookr.user}}</td>
+            <td>{{bookr.borrowingTime}}</td>
+            <td>
+                {% if bookr.returnTime %}
+                    {{bookr.returnTime}}
+                {% else %}
+                    not returned yet
+                {% endif %}
+            </td>
+            
+        </tr>
+    {% endfor %}
+</table>

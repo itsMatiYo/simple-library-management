@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 
@@ -14,8 +15,9 @@ class BookRecord(models.Model):
     returnTime = models.DateTimeField(blank=True, null=True)
 
     def setReturnTime(self):
-        self.returnTime = timezone.now()
-        self.save()
+        if self.returnTime is None:
+            self.returnTime = timezone.now()
+            self.save()
 
     class Meta:
         ordering = [
@@ -25,6 +27,9 @@ class BookRecord(models.Model):
     def __str__(self) -> str:
         return super().__str__()
 
+    def get_absolute_url(self):
+        return reverse("bookRecordDetail", kwargs={"pk": self.pk})
+
 
 class User(models.Model):
     name = models.CharField(max_length=512)
@@ -32,8 +37,8 @@ class User(models.Model):
     def __str__(self) -> str:
         return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse("model_detail", kwargs={"pk": self.pk})
+    def get_absolute_url(self):
+        return reverse("userDetail", kwargs={"pk": self.pk})
 
 
 class Book(models.Model):
@@ -49,8 +54,8 @@ class Book(models.Model):
             raise Exception("This book is occupied")
 
     def returnBook(self):
-        if self.bookRecords.filter(returnTime=None).exists():
-            br = self.bookRecords.get(returnTime=None)
+        br = self.bookRecords.get(returnTime=None)
+        if br is not None:
             br.setReturnTime()
         else:
             raise Exception("This book is not occupied")
@@ -66,3 +71,6 @@ class Book(models.Model):
             return f"{self.title} from {self.author}"
         else:
             return f"{self.title}"
+
+    def get_absolute_url(self):
+        return reverse("bookDetail", kwargs={"pk": self.pk})

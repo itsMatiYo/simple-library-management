@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="post-entry">
+        <h2>name: {{ user.name }}</h2>
+    </div>
+    <a href="{% url 'userEdit' user.pk %}">+ Edit user </a>
+    <p><a href="{% url 'userDelete' user.pk %}">- Delete user </a></p>
+
+    <h2>Book Records for this user</h2>
+    <ul>
+        {% for bookRecord in records %}
+        <li>
+            <a href={% url 'bookRecordDetail' bookRecord.pk %}>
+                {{bookRecord}}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}

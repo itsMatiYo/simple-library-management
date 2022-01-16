@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Edit book</h1>
+    <form action="" method="post">
+    {% csrf_token %}
+    <p>are you sure you want to return {{obj.book}} by {{obj.user}} at {{obj.borrowingTime}}</p>
+    <input type="submit" value="Return">
+    </form>
+{% endblock content %}

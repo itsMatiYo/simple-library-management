@@ -4,7 +4,7 @@ from django.utils import timezone
 from books import models as md
 
 
-class BookTest(TestCase):
+class ModelTest(TestCase):
     def setUp(self) -> None:
         self.user3 = md.User.objects.create(name="moot")
         self.nowTime = timezone.now()
